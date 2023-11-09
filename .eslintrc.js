@@ -36,6 +36,8 @@ module.exports = {
             },
         ],
         'react/react-in-jsx-scope': 'off',
+        'prefer-const': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
         // 'import/prefer-default-export': 'off',
         // 'react/function-component-definition': 'off',
         // 'react/jsx-props-no-spreading': 'off',
