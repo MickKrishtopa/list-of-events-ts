@@ -1,22 +1,15 @@
-import React, { useState } from 'react';
-import { ToggleButton, ToggleButtonChangeEvent } from 'primereact/togglebutton';
+import { Button } from 'primereact/button';
 
 type Props = {
-    isNew: boolean;
+    label: string;
+    disabled: boolean;
     onClick: () => void;
 };
 
-export default function Button({ isNew, onClick }: Props) {
-    const [checked, setChecked] = useState<boolean>(isNew);
-
+export default function CommonButton({ label, disabled, onClick }: Props) {
     return (
         <div className="card flex justify-content-center">
-            <ToggleButton
-                onClick={onClick}
-                checked={checked}
-                onChange={(e: ToggleButtonChangeEvent) => setChecked(e.value)}
-                className="w-8rem"
-            />
+            <Button label={label} disabled={disabled} onClick={onClick} />
         </div>
     );
 }

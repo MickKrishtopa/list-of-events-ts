@@ -8,33 +8,26 @@ import {
     TriStateCheckboxChangeEvent,
 } from 'primereact/tristatecheckbox';
 
-import Button from '../Button/Button';
+import ToggleButton from '../ToggleButton/ToggleButton';
 import { IEvent } from '../../types/types';
 
 type Props = {
     events: Array<IEvent>;
     toggleStatus: (id: string) => void;
 };
+
 export default function SingleColumnDemo({ events, toggleStatus }: Props) {
     const [filters, setFilters] = useState<DataTableFilterMeta>({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        date: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        priority: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        equipment: { value: null, matchMode: FilterMatchMode.EQUALS },
-        message: { value: null, matchMode: FilterMatchMode.IN },
-        responsible: { value: null, matchMode: FilterMatchMode.EQUALS },
+        date: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        priority: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        equipment: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        message: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        responsible: { value: null, matchMode: FilterMatchMode.CONTAINS },
         new: { value: null, matchMode: FilterMatchMode.EQUALS },
     });
     const [loading, setLoading] = useState<boolean>(true);
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
-    const [priority, setPriority] = useState<string[]>([]);
-    const [equipment, setEquipment] = useState<string[]>(
-        events.map((e) => e.equipment),
-    );
-    const [message, setMessage] = useState<string[]>([]);
-    const [responsible, setResponsible] = useState<string[]>([
-        'Иванов", "Петров',
-    ]);
 
     useEffect(() => {
         setLoading(false);
@@ -68,7 +61,7 @@ export default function SingleColumnDemo({ events, toggleStatus }: Props) {
 
     const readedBodyTemplate = (rowData: IEvent) => {
         return (
-            <Button
+            <ToggleButton
                 isNew={rowData.new}
                 onClick={() => toggleStatus(rowData.id)}
             />

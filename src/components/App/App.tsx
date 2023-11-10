@@ -1,7 +1,10 @@
 import './App.scss';
 
 import { useState, useEffect } from 'react';
+
 import DataTable from '../DataTable/DataTable';
+import DataCards from '../DataCards/DataCards';
+import Button from '../Button/Button';
 import { IEvent } from '../../types/types';
 
 import { createEvent } from '../../utils/createEvent';
@@ -9,12 +12,12 @@ import { data } from '../../utils/data';
 
 function App() {
     const [events, setEvents] = useState<IEvent[]>(data);
+    const [view, setView] = useState<string>('table');
 
     const toggleStatus = (id: string): void => {
-        console.log('click');
         setEvents((prev) => {
             const toggledEvent = prev.find((e) => e.id === id);
-            console.log(toggledEvent);
+
             if (toggledEvent) {
                 toggledEvent.new = !toggledEvent.new;
                 return [...prev];
@@ -24,18 +27,37 @@ function App() {
         });
     };
 
-    // useEffect(() => {
-    //     const newEvent = createEvent();
-    //     setTimeout(() => {
-    //         setEvents([newEvent, ...events]);
-    //     }, 10000);
-    // });
+    useEffect(() => {
+        const newEvent = createEvent();
+        const timerID = setInterval(() => {
+            setEvents([newEvent, ...events]);
+        }, 3000);
+        return () => {
+            clearInterval(timerID);
+        };
+    });
 
     return (
         <section className="App">
-            <h1>Hello</h1>
-            <DataTable events={events} toggleStatus={toggleStatus} />
-            {/* <Demo /> */}
+            <div className="flex flex-row flex-wrap gap-3 m-5">
+                <Button
+                    label="Таблица"
+                    disabled={view === 'table'}
+                    onClick={() => setView('table')}
+                />
+                <Button
+                    label="Карточки"
+                    disabled={view === 'cards'}
+                    onClick={() => setView('cards')}
+                />
+            </div>
+
+            {view === 'table' && (
+                <DataTable events={events} toggleStatus={toggleStatus} />
+            )}
+            {view === 'cards' && (
+                <DataCards events={events} toggleStatus={toggleStatus} />
+            )}
         </section>
     );
 }
