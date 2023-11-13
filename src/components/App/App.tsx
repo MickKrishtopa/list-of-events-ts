@@ -1,5 +1,3 @@
-import './App.scss';
-
 import { useState, useEffect } from 'react';
 
 import DataTable from '../DataTable/DataTable';
@@ -27,15 +25,15 @@ function App() {
         });
     };
 
-    // useEffect(() => {
-    //     const newEvent = createEvent();
-    //     const timerID = setInterval(() => {
-    //         setEvents([newEvent, ...events]);
-    //     }, 3000);
-    //     return () => {
-    //         clearInterval(timerID);
-    //     };
-    // });
+    useEffect(() => {
+        const newEvent = createEvent();
+        const timerID = setInterval(() => {
+            setEvents([newEvent, ...events]);
+        }, 10000);
+        return () => {
+            clearInterval(timerID);
+        };
+    });
 
     return (
         <section className="App">
