@@ -27,15 +27,15 @@ function App() {
         });
     };
 
-    useEffect(() => {
-        const newEvent = createEvent();
-        const timerID = setInterval(() => {
-            setEvents([newEvent, ...events]);
-        }, 3000);
-        return () => {
-            clearInterval(timerID);
-        };
-    });
+    // useEffect(() => {
+    //     const newEvent = createEvent();
+    //     const timerID = setInterval(() => {
+    //         setEvents([newEvent, ...events]);
+    //     }, 3000);
+    //     return () => {
+    //         clearInterval(timerID);
+    //     };
+    // });
 
     return (
         <section className="App">
